@@ -1,0 +1,97 @@
+Documentação do Código para Instalação e Utilização do SDK do Google AI (Python)
+Este código Python demonstra a instalação e utilização do SDK do Google AI para gerar conteúdo e iniciar um chat com um modelo de linguagem. O código inclui comentários explicativos para cada etapa e função.
+
+1. Instalação do SDK:
+
+Python
+!pip install -q -U google-generativeai
+Use o código com cuidado.
+content_copy
+Este comando instala a última versão do SDK do Google AI no ambiente Python. O flag -q suprime a saída de mensagens durante a instalação e o flag -U garante que a versão mais recente seja instalada.
+
+2. Importação do SDK:
+
+Python
+import google.generativeai as genai
+Use o código com cuidado.
+content_copy
+Esta linha importa a biblioteca google-generativeai e a renomeia para genai para facilitar o uso.
+
+3. Autenticação com Chave de API:
+
+Python
+from google.colab import userdate
+api_key = userdate.get('chave_google')
+genai.configure(api_key=api_key)
+Use o código com cuidado.
+content_copy
+Estas linhas recuperam a chave de API do Google Cloud Platform armazenada na variável de ambiente chave_google e a configuram como a chave de API padrão para o SDK do Google AI.
+
+4. Listagem de Modelos Disponíveis:
+
+Python
+for m in genai.list_models():
+  if 'generateContent' in m.supported_generation_methods:
+    print(m.name)
+Use o código com cuidado.
+content_copy
+Este loop itera sobre todos os modelos disponíveis no SDK do Google AI e verifica se eles suportam a geração de conteúdo. Se um modelo suportar a geração de conteúdo, seu nome é impresso no console.
+
+5. Definição da Configuração de Geração:
+
+Python
+generation_config = {
+  "candidate_count": 1,
+  "temperature": 0.5,
+}
+Use o código com cuidado.
+content_copy
+Este dicionário define a configuração de geração para o conteúdo que será gerado. As opções disponíveis incluem:
+
+candidate_count: O número de candidatos de texto a serem gerados.
+temperature: A temperatura da geração, que controla a criatividade e a aleatoriedade do texto.
+6. Definição das Configurações de Segurança:
+
+Python
+safety_settings = {
+  "HARASSMENT": "BLOCK_NONE",
+  "HATE": "BLOCK_NONE",
+  "SEXUAL": "BLOCK_NONE",
+  "DANGEROUS": "BLOCK_NONE",
+}
+Use o código com cuidado.
+content_copy
+Este dicionário define as configurações de segurança para o conteúdo que será gerado. As opções disponíveis incluem:
+
+HARASSMENT: O nível de bloqueio de conteúdo assediador.
+HATE: O nível de bloqueio de conteúdo de ódio.
+SEXUAL: O nível de bloqueio de conteúdo sexual.
+DANGEROUS: O nível de bloqueio de conteúdo perigoso.
+7. Inicialização do Modelo:
+
+Python
+model = genai.GenerativeModel(model_name="gemini-1.0-pro",
+                              generation_config=generation_config,
+                              safety_settings=safety_settings)
+Use o código com cuidado.
+content_copy
+Esta linha cria uma instância do modelo de linguagem gemini-1.0-pro e configura-o com as configurações de geração e segurança definidas anteriormente.
+
+8. Geração de Conteúdo:
+
+Python
+response = model.generate_content ("haja como um engenheiro ambiental e crie uma campanha para conscientização do ser humano com relação ao hábitos sustentáveis para que não ocorra os desastres naturais que estamos vivendo em 2024 e enfatize que o não cumprimento destes hábitos prejudicará as próximas gerações e explique os eventos prejudiciais.")
+print(response.text)
+Use o código com cuidado.
+content_copy
+Esta linha gera conteúdo usando o modelo gemini-1.0-pro e o prompt "haja como um engenheiro ambiental e crie uma campanha para conscientização do ser humano com relação ao hábitos sustentáveis para que não ocorra os desastres naturais que estamos vivendo em 2024 e enfatize que o não cumprimento destes hábitos prejudicará as próximas gerações e explique os eventos prejudiciais.". O texto gerado é armazenado na variável response.text e impresso no console.
+
+9. Inicialização do Chat:
+
+Python
+chat = model.start_chat(history=[])
+Use o código com cuidado.
+content_copy
+Esta linha inicia um chat com o modelo gemini-1.0-pro. A lista vazia [] indica que não há histórico de conversa anterior.
+
+10. Loop Principal do Chat:
